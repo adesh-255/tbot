@@ -26,7 +26,8 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    dockerImage.run('-d --name qrgram-bot')
+                    
+                    sh 'make deploy'
                 }
             }
         }
