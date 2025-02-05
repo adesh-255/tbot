@@ -11,11 +11,11 @@ install:
 
 build:
 	@echo "Building the project..."
-	docker build -t adeshinadede/allmight_bot .
+	docker build -t adeshinadede/adeshina_bot .
 
 make deploy:
 	@echo "Deploying the project..."
-	docker run -d -p 8003:80 adeshinadede/fastapi-app
+	docker run -d -p 8003:80 adeshinadede/adeshina_bot
 
 serve:
 	@echo "Starting development server..."
