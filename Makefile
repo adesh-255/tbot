@@ -11,7 +11,7 @@ install:
 
 build:
 	@echo "Building the project..."
-	docker build -t adeshinadede/adeshina_bot .
+	docker build --no-cache -t adeshinadede/adeshina_bot .
 
 make deploy:
 	@echo "Deploying the project..."
