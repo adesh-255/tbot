@@ -14,9 +14,15 @@ build:
 	docker build --no-cache -t adeshinadede/adeshina_bot .
 
 make deploy:
+	@echo "Checking if the container is running..."
+	@if [ $$(docker ps -q -f name=adeshina_bot) ]; then \
+		echo "Stopping existing container..."; \
+		docker stop adeshina_bot; \
+		echo "Removing existing container..."; \
+		docker rm adeshina_bot; \
+	fi
 	@echo "Deploying the project..."
-	docker run -d -p 8003:80 adeshinadede/adeshina_bot
-
+	docker run -d --name adeshina_bot -p 8003:80 adeshinadede/adeshina_bot
 serve:
 	@echo "Starting development server..."
 	.venv/bin/fastapi dev src/main.py
