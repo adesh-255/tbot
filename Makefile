@@ -14,10 +14,10 @@ build:
 	docker build --no-cache -t adeshinadede/adeshina_bot .
 
 make deploy:
-	@echo "Checking if a container exists for the given image..."
-	@CID=$$(docker ps -a --filter ancestor=adeshinadede/adeshina_bot --format="{{.ID}}"); \
+	@echo "Checking if a container is using port 8003..."
+	@CID=$$(docker ps -a --filter "publish=8003" --format="{{.ID}}"); \
 	if [ -z "$$CID" ]; then \
-		echo "No existing container found for the image."; \
+		echo "No container found on port 8003."; \
 	else \
 		echo "Stopping container $$CID..."; \
 		docker stop $$CID; \
