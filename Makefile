@@ -14,13 +14,15 @@ build:
 	docker build --no-cache -t adeshinadede/adeshina_bot .
 
 make deploy:
-	@echo "Checking if a container is using port 8003..."
-	@if [ $$(docker ps -q -f "publish=8003") ]; then \
-		CONTAINER_ID=$$(docker ps -q -f "publish=8003"); \
-		echo "Stopping container $$CONTAINER_ID..."; \
-		docker stop $$CONTAINER_ID; \
-		echo "Removing container $$CONTAINER_ID..."; \
-		docker rm $$CONTAINER_ID; \
+
+	@echo "Checking if the container exists..."
+	@CID=$$(docker ps -a -f "name=adeshina_bot" --format "{{.ID}}"); \
+	if [ -z "$$CID" ]; then \
+		echo "Container does not exist."; \
+	else \
+		echo "Container exists. Stopping and removing..."; \
+		docker stop $$CID; \
+		docker rm $$CID; \
 	fi
 	@echo "Deploying the project..."
 	docker run -d -p 8003:80 adeshinadede/adeshina_bot
