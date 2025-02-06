@@ -14,14 +14,14 @@ build:
 	docker build --no-cache -t adeshinadede/adeshina_bot .
 
 make deploy:
-
-	@echo "Checking if the container exists..."
-	@CID=$$(docker ps -a -f "name=adeshina_bot" --format "{{.ID}}"); \
+	@echo "Checking if a container exists for the given image..."
+	@CID=$$(docker ps -a --filter ancestor=adeshinadede/adeshina_bot --format="{{.ID}}"); \
 	if [ -z "$$CID" ]; then \
-		echo "Container does not exist."; \
+		echo "No existing container found for the image."; \
 	else \
-		echo "Container exists. Stopping and removing..."; \
+		echo "Stopping container $$CID..."; \
 		docker stop $$CID; \
+		echo "Removing container $$CID..."; \
 		docker rm $$CID; \
 	fi
 	@echo "Deploying the project..."
