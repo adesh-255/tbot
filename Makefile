@@ -14,18 +14,8 @@ build:
 	docker build --no-cache -t adeshinadede/adeshina_bot .
 
 make deploy:
-	@echo "Checking if a container is using port 8003..."
-	@CID=$$(docker ps -a --filter "publish=8003" --format="{{.ID}}"); \
-	if [ -z "$$CID" ]; then \
-		echo "No container found on port 8003."; \
-	else \
-		echo "Stopping container $$CID..."; \
-		docker stop $$CID; \
-		echo "Removing container $$CID..."; \
-		docker rm $$CID; \
-	fi
-	@echo "Deploying the project..."
-	docker run -d -p 8003:80 adeshinadede/adeshina_bot
+	chmod +x deploy.sh
+	/.deploy.sh
 serve:
 	@echo "Starting development server..."
 	.venv/bin/fastapi dev src/main.py
