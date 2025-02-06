@@ -15,7 +15,7 @@ build:
 
 make deploy:
 	chmod +x deploy.sh
-	/.deploy.sh
+	./deploy.sh
 serve:
 	@echo "Starting development server..."
 	.venv/bin/fastapi dev src/main.py
