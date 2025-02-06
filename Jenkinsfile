@@ -8,7 +8,7 @@ pipeline {
     environment {
         BOT_TOKEN = credentials('telegram-bot-token')
         SCANNER_HOME = tool 'Sonar-scanner'
-        ADMIN_EMAIL = "adeshinadede@gmail.com"
+        ADMIN_EMAIL = "hervlokossou@gmail.com"
     }
 
     stages {
