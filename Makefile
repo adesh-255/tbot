@@ -14,15 +14,16 @@ build:
 	docker build --no-cache -t adeshinadede/adeshina_bot .
 
 make deploy:
-	@echo "Checking if the container is running..."
-	@if [ $$(docker ps -q -f name=adeshina_bot) ]; then \
-		echo "Stopping existing container..."; \
-		docker stop adeshina_bot; \
-		echo "Removing existing container..."; \
-		docker rm adeshina_bot; \
+	@echo "Checking if a container is using port 8003..."
+	@if [ $$(docker ps -q -f "publish=8003") ]; then \
+		CONTAINER_ID=$$(docker ps -q -f "publish=8003"); \
+		echo "Stopping container $$CONTAINER_ID..."; \
+		docker stop $$CONTAINER_ID; \
+		echo "Removing container $$CONTAINER_ID..."; \
+		docker rm $$CONTAINER_ID; \
 	fi
 	@echo "Deploying the project..."
-	docker run -d --name adeshina_bot -p 8003:80 adeshinadede/adeshina_bot
+	docker run -d -p 8003:80 adeshinadede/adeshina_bot
 serve:
 	@echo "Starting development server..."
 	.venv/bin/fastapi dev src/main.py
